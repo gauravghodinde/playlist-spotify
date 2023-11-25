@@ -1,7 +1,13 @@
 .App {
   text-align: center;
 }
-
+html {
+  min-height: 100%;
+}
+body{
+  background: rgb(19,20,19);
+  background: linear-gradient(350deg, rgba(19,20,19,1) 0%, rgba(0,0,0,1) 84%);
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

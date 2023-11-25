@@ -1,0 +1,58 @@
+.navbar-body {
+  background-color: transparent;
+  margin: 5px;
+}
+
+.button {
+  margin-left: 15px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 27px;
+}
+.button-profile {
+  width: 203px;
+  height: 40px;
+
+  /* opacity: 0.08; */
+  background: var(--White, #ffffff10);
+  font-weight: bold;
+}
+
+.button-logout {
+  width: 86px;
+  height: 40px;
+  background-color: white;
+  font-weight: bold;
+}
+.button:hover {
+  position: relative;
+  transform: scale(1.02, 1.02);
+}
+.logoImg {
+  height: 50px;
+}
+.logoText {
+  font-size: large;
+  font-size: 28px;
+  font-weight: bolder;
+  position: relative;
+  top: 5px;
+  right: 9px;
+}
+
+.profile-name {
+  color: var(--White, #fff);
+  
+  opacity: 0.6;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.profile-img{
+  width: 30px;
+height: 30px;
+object-fit:cover;
+border-radius: 30px;
+margin-right: 10px;
+}
