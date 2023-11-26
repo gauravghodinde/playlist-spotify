@@ -4,9 +4,18 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import MNavbar from "./components/navbar/navbar";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, getDownloadURL ,uploadBytes} from "firebase/storage";
 import { initializeApp } from "firebase/app";
-import usersLoc from "./models/usersJson/users.json";
+import { getDatabase, set } from "firebase/database";
+// import usersLoc from "./models/usersJson/users.json";
+
+// class UserObj {
+//   constructor(uid){
+//     this.uid = this.uid
+//   }
+// }
+
+
 const App = () => {
   //spotify api
   const Client_ID = "7ff122a72d714976b8ad54fbd5022e46";
@@ -19,7 +28,7 @@ const App = () => {
   const [token, setToken] = useState("");
   const [data, setUser] = useState({});
   const [jsonData, setJsonData] = useState(null);
-
+  const [uidArr,setUidArr] = useState([])
 
   //Firebase
 
@@ -34,7 +43,49 @@ const App = () => {
   };
   const app = initializeApp(firebaseConfig);
 
+
+
+
+  const writeToFirebase = (fileJson) => {
+    const storage = getStorage();
+    const fileRef = ref(storage, "/users.json");
+    uploadBytes(fileRef, fileJson).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    });
+  };
   
+  // Usage example
+  // const newData = { key1: "value1", key2: "value2" };
+  // writeToFirebase(newData);
+
+
+
+
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      if( data && uidArr && jsonData  ){
+        if(!uidArr.includes(data.id)){
+          console.log("uid not present you can add it\n",data.id)
+          const obj= {"uid": `${data.id}`}
+
+          jsonData.users.push(obj)
+          console.log(jsonData,"\n this is what i need",obj)
+
+          const fileBlobJson = new Blob([JSON.stringify(jsonData, null, 2)], {
+            type: "application/json",
+          });
+          
+          writeToFirebase(fileBlobJson);
+
+        }else{
+          console.log("already present" , data,"\n" ,uidArr, "\n" ,jsonData )
+        }
+        }
+    },5000)
+    
+  },[uidArr])
+
   useEffect(() => {
     //get the users json from firebase storage
     const storage = getStorage(app);
@@ -43,7 +94,11 @@ const App = () => {
       .then((url) => {
         fetch(url)
           .then((response) => response.json())
-          .then((data) => setJsonData(data))
+          .then((data) => 
+          {setJsonData(data)
+          makeUidArray(data)
+          }
+          )
           .catch((error) => console.error("Error fetching JSON:", error));
       })
       .catch((error) => console.error("Error getting download URL:", error));
@@ -72,8 +127,25 @@ const App = () => {
       data = window.localStorage.getItem("user");
     }
     setUser(JSON.parse(data));
+    
+   
+
+
+
+
+
   }, []);
 
+
+  
+  const makeUidArray = (userDataJsonData) => {
+    let arr=[]
+    console.log(userDataJsonData)
+    for(let i=0;i<userDataJsonData.users.length;i++){
+      arr.push(userDataJsonData.users[i].uid)
+    }
+    setUidArr(arr)
+  }
   //logout -> delete all the data
   const logout = () => {
     setToken("");
@@ -85,6 +157,7 @@ const App = () => {
   //get user profile data with spotify api
   const getUser = async (e) => {
     let token = window.localStorage.getItem("token");
+    console.log("token in getUser", token)
     if (token) {
       console.log("this is ", !token);
 
@@ -96,6 +169,7 @@ const App = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+    
       window.localStorage.setItem("user", JSON.stringify(data));
       window.location.reload();
     }
@@ -152,8 +226,12 @@ const App = () => {
         (
           <div>
       <h1>JSON Data:</h1>
+      {
+        jsonData.users.map((user)=>{
+          return <pre>{user.uid}</pre>
+        })
+      }
       
-      <pre>{console.log(jsonData.users[0].uid)}</pre>
     </div>
         )
       }
