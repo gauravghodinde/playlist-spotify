@@ -7,18 +7,13 @@ import MNavbar from "./components/navbar/navbar";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import { getDatabase, set } from "firebase/database";
-// import usersLoc from "./models/usersJson/users.json";
-
-// class UserObj {
-//   constructor(uid){
-//     this.uid = this.uid
-//   }
-// }
+import UserBox from "./components/userBox/userBox";
+import ProfileNan from './assests/profileNaN.svg'
 
 const App = () => {
   //spotify api
   const Client_ID = "7ff122a72d714976b8ad54fbd5022e46";
-  const REDIRECT_URI = "https://playlist-spotify-4e18f.firebaseapp.com/"//"http://localhost:3000"; //"https://playlist-spotify-4e18f.firebaseapp.com/"
+  const REDIRECT_URI = "https://playlist-spotify-4e18f.firebaseapp.com/";// "http://localhost:3000"; // "https://playlist-spotify-4e18f.firebaseapp.com/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
@@ -29,7 +24,7 @@ const App = () => {
   const [uidArr, setUidArr] = useState([]);
 
   const [userNameArr, updateUserNameArr] = useState([]);
-  const [btnclicked,updatebtnclicked] = useState(false)
+  const [btnclicked, updatebtnclicked] = useState(false);
   //Firebase
 
   const firebaseConfig = {
@@ -151,15 +146,15 @@ const App = () => {
           },
         })
         .then((response) => {
-          console.log(response)
+          console.log(response);
           // updateUserNameArr([...userNameArr, response.data.display_name]);
-          updateUserNameArr(prevArr => [...prevArr, response.data]);
+          updateUserNameArr((prevArr) => [...prevArr, response.data]);
         });
     }
   };
 
   const showUsers = async () => {
-    updatebtnclicked(true)
+    updatebtnclicked(true);
     await Promise.all(
       jsonData.users.map(async (user) => {
         await getUsersInfo(user.uid);
@@ -203,47 +198,57 @@ const App = () => {
         </div>
       ) : (
         //Main page
-        <MNavbar
-          logout={logout}
-          userImg={data.images && data.images[0] ? data.images[0].url : null}
-          userName={data.display_name}
-        />
-      )}
-
-      {token ? (
         <div>
-          <h1>
-            {/* {console.log(data.images)}
-          {console.log(data)} */}
-            Welcome {data.display_name} {data.id}{" "}
-          </h1>
-          <button onClick={getUser}> get user info</button>
-        </div>
-      ) : (
-        // <form onSubmit={searchArtists}>
-        //   <input type="text" onChange={(e) => setSearchKey(e.target.value)} />
-        //   <button type={"submit"}>Search</button>
-        // </form>
-        <h2>Please login</h2>
-      )}
-
-      {!jsonData ? (
-        <h1>Loading</h1>
-      ) : (
-        <div>
-          <button className="btn btn-success" disabled={btnclicked} onClick={showUsers}>
-            Show Earlier Users
-          </button>
-
-          {userNameArr ? (
-            
-            userNameArr.map((user, index) => {
-              console.log(userNameArr)
-            return (<div className="d-flex"> <img src={user.images[0] ? user.images[0].url : null}></img><a href={user.external_urls.spotify} key={index}>{user.display_name}</a></div>)
-          
-          })
+          <MNavbar
+            logout={logout}
+            userImg={data.images && data.images[0] ? data.images[0].url : null}
+            userName={data.display_name}
+          />
+          {token ? (
+            <div>
+              <h1>
+                Welcome {data.display_name}
+              </h1>
+            </div>
           ) : (
-            <h1>No users</h1>
+            <h2>Please login</h2>
+          )}
+          {!jsonData ? (
+            <h1>Loading</h1>
+          ) : (
+            <div>
+              <button
+                className="btn btn-success"
+                disabled={btnclicked}
+                onClick={showUsers}
+              >
+                Show Early Users
+              </button>
+              <div className="d-flex UserCards container" >
+              {userNameArr ? (
+                userNameArr.map((user, index) => {
+                  console.log(userNameArr);
+                  return (
+                    //users
+                    <div className="p-4 m-3 ">
+                    
+                      <UserBox userSpotifyLink={user.external_urls.spotify} displayName={user.display_name} Profimage={user.images[0] ? user.images[0].url : ProfileNan} followers={user.followers.total} />
+                      {/* {" "} */}
+                      {/* <img
+                        src={user.images[0] ? user.images[0].url : null}
+                      ></img>
+                      <a href={user.external_urls.spotify} key={index}>
+                        
+                      </a> */}
+                      </div>
+                    
+                  );
+                })
+              ) : (
+                <h1>No users</h1>
+              )}
+              </div>
+            </div>
           )}
         </div>
       )}

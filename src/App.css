@@ -42,3 +42,8 @@ body{
     transform: rotate(360deg);
   }
 }
+
+.UserCards{
+  flex-wrap: wrap;
+  justify-content:center;
+}
