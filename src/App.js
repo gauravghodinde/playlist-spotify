@@ -13,7 +13,7 @@ import ProfileNan from './assests/profileNaN.svg'
 const App = () => {
   //spotify api
   const Client_ID = "7ff122a72d714976b8ad54fbd5022e46";
-  const REDIRECT_URI = "https://playlist-spotify-4e18f.firebaseapp.com/";// "http://localhost:3000"; // "https://playlist-spotify-4e18f.firebaseapp.com/";
+  const REDIRECT_URI =  "http://localhost:3000"; // "https://playlist-spotify-4e18f.firebaseapp.com/"; "https://playlist-spotify-4e18f.firebaseapp.com/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
@@ -25,6 +25,7 @@ const App = () => {
 
   const [userNameArr, updateUserNameArr] = useState([]);
   const [btnclicked, updatebtnclicked] = useState(false);
+  const [userDetailsEnabled,setuserDetailsEnabled] = useState(false)
   //Firebase
 
   const firebaseConfig = {
@@ -184,6 +185,11 @@ const App = () => {
     }
   };
 
+
+  // const userDetailsEnabled=(user)=>{
+  //   alert(user)
+  // }
+
   return (
     <div className="App">
       {!token ? (
@@ -224,16 +230,17 @@ const App = () => {
               >
                 Show Early Users
               </button>
-              <div className="d-flex UserCards container" >
+              <div className="d-flex">
+              <div className="d-flex UserCards container " >
               {userNameArr ? (
                 userNameArr.map((user, index) => {
                   console.log(userNameArr);
                   return (
                     //users
                     <div className="p-4 m-3 ">
-                    
+                      <div className="onclickFunc" onClick={()=>{userDetailsEnabled ? setuserDetailsEnabled(false) : setuserDetailsEnabled(true)}}>
                       <UserBox userSpotifyLink={user.external_urls.spotify} displayName={user.display_name} Profimage={user.images[0] ? user.images[0].url : ProfileNan} followers={user.followers.total} />
-                      {/* {" "} */}
+                      </div>
                       {/* <img
                         src={user.images[0] ? user.images[0].url : null}
                       ></img>
@@ -246,6 +253,13 @@ const App = () => {
                 })
               ) : (
                 <h1>No users</h1>
+              )}
+
+            </div>
+              {userDetailsEnabled && (
+                <div className="container userDetails">
+                  <h1> Enabled</h1>
+                </div>
               )}
               </div>
             </div>
