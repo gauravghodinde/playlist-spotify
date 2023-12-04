@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto");
+.bg {
+  background-color: transparent;
+  margin: 15px;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  
+}
+.profile-section {
+  border-radius: 13.25px 13.25px 0px 0px;
+  background: linear-gradient(180deg, #d9d9d9 0.18%, #2e2e2e 99.82%);
+  height: 330px;
+  display: flex;
+  padding-top: 119px;
+  padding-left: 21px;
+}
+.Profile-image {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  box-shadow: black 5px;
+}
+.div-for-text {
+  margin-left: 13px;
+}
+.profileText {
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: 0.32px;
+  text-align: left;
+}
+.userNameText {
+  color: #fff;
+
+  font-size: 86px;
+  font-style: normal;
+  font-weight: bolder;
+  line-height: normal;
+  letter-spacing: -1px;
+  position: relative;
+  left: -5px;
+}
+.followingInfo {
+  margin-top: 31px;
+  display: flex;
+}
+.noOfplatlists {
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: 0.32px;
+}
+.noOfFolloers {
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: 0.32px;
+}
+.noOfFollowing {
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: 0.32px;
+}
+.dot {
+  font-size: large;
+  padding: 5px;
+  position: relative;
+  top: -10px;
+}
+
+.playlists-section {
+  border-radius: 0px 0px 13.25px 13.25px;
+  background: linear-gradient(
+    0deg,
+    #000 -2.2%,
+    #505050 184.01%,
+    rgba(255, 255, 255, 0) 943.64%,
+    #fff 943.64%
+  );
+  padding-left: 20px;
+}
+.FollowbtnGroup {
+  display: flex;
+  padding-top: 44px;
+  /* padding-left: 20px; */
+}
+.followBtn {
+  background-color: transparent;
+  border-radius: 19px;
+  border: 1px solid #fff;
+
+  width: 94px;
+  height: 38px;
+}
+.followText {
+  text-align: center;
+  position: relative;
+  top: 5px;
+}
+.threeDots {
+  color: #fff;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: 2.6px;
+  position: relative;
+  top: -15px;
+  padding-left: 33px;
+}
+.publicPlaylists {
+  color: #fff;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  text-align: left;
+  padding-top: 33px;
+  padding-bottom: 21px;
+}
+
+.bg-playlist {
+margin-top: 15px;
+margin-bottom: 150px;
+  border-radius: 11px;
+  background: rgba(34, 34, 34, 0.35);
+  width: 249px;
+  height: 344px;
+  flex-shrink: 0;
+  box-shadow: 0px 0px 10px 0px black;
+}
+.img-playlists {
+    border-radius: 7px;
+    width: 206px;
+    height: 208px;
+    flex-shrink: 0;
+    position: relative;
+    top: 20px;
+}
+.playlist-Object {
+  display: flex;
+  overflow: hidden;
+  width:100vh;
+}
+.playlist-title{
+    position: relative;
+    z-index: 10;
+    top: 35px;
+    text-align: left;
+    padding-left: 21px;
+    color: #FFF;
+
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+
+}
+.playlist-owner{
+    color: #ffffff75;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+position: relative;
+text-align: left;
+padding: 21px;
+top: 25px;
+}

@@ -9,11 +9,12 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, set } from "firebase/database";
 import UserBox from "./components/userBox/userBox";
 import ProfileNan from './assests/profileNaN.svg'
+import UserInfo from "./components/userInfo/userInfo";
 
 const App = () => {
   //spotify api
   const Client_ID = "7ff122a72d714976b8ad54fbd5022e46";
-  const REDIRECT_URI =  "http://localhost:3000"; // "https://playlist-spotify-4e18f.firebaseapp.com/"; "https://playlist-spotify-4e18f.firebaseapp.com/";
+  const REDIRECT_URI =  "http://localhost:3000"; //  "https://playlist-spotify-4e18f.firebaseapp.com/";"https://playlist-spotify-4e18f.firebaseapp.com/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
@@ -25,7 +26,8 @@ const App = () => {
 
   const [userNameArr, updateUserNameArr] = useState([]);
   const [btnclicked, updatebtnclicked] = useState(false);
-  const [userDetailsEnabled,setuserDetailsEnabled] = useState(false)
+  const [userDetailsEnabled,setuserDetailsEnabled] = useState(null);
+  const [userDetailsInfo,setUserDetailsInfo] = useState(null);
   //Firebase
 
   const firebaseConfig = {
@@ -154,6 +156,47 @@ const App = () => {
     }
   };
 
+
+  //Update Playlist of user
+  useEffect(()=>{
+    if (userDetailsEnabled){
+      getPlaylistInfo(userDetailsEnabled.id)
+    }
+  },[userDetailsEnabled])
+
+
+  //=================================================================================
+  // GET PLAYLIST OF USER
+  const getPlaylistInfo = async (uid, e) => {
+    let token = window.localStorage.getItem("token");
+    console.log("token in Info", token);
+    if (token) {
+      e = !e ? (e = new Event("dummy")) : e;
+      e.preventDefault();
+      axios
+        .get(`https://api.spotify.com/v1/users/${uid}/playlists`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          // updateUserNameArr([...userNameArr, response.data.display_name]);
+          // updateUserNameArr((prevArr) => [...prevArr, response.data]);
+          setUserDetailsInfo(response.data);
+
+        });
+    }
+  };
+
+
+
+
+
+
+
+  //==================================================
+
   const showUsers = async () => {
     updatebtnclicked(true);
     await Promise.all(
@@ -238,7 +281,7 @@ const App = () => {
                   return (
                     //users
                     <div className="p-4 m-3 ">
-                      <div className="onclickFunc" onClick={()=>{userDetailsEnabled ? setuserDetailsEnabled(false) : setuserDetailsEnabled(true)}}>
+                      <div className="onclickFunc" onClick={function (){userDetailsEnabled ? setuserDetailsEnabled(null) : setuserDetailsEnabled(user)}}>
                       <UserBox userSpotifyLink={user.external_urls.spotify} displayName={user.display_name} Profimage={user.images[0] ? user.images[0].url : ProfileNan} followers={user.followers.total} />
                       </div>
                       {/* <img
@@ -256,9 +299,13 @@ const App = () => {
               )}
 
             </div>
+              {/* {userDetailsEnabled && getPlaylistInfo()} */}
               {userDetailsEnabled && (
                 <div className="container userDetails">
-                  <h1> Enabled</h1>
+                  {/* <h1>{JSON.stringify(userDetailsInfo)}</h1> */}
+                  {userDetailsInfo && 
+                  <UserInfo userName={userDetailsEnabled.display_name} imageProf={userDetailsEnabled.images[0] ? userDetailsEnabled.images[0].url : ProfileNan} playlists={userDetailsInfo} followers={userDetailsEnabled.followers.total}/>
+                  }
                 </div>
               )}
               </div>

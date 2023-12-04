@@ -12,6 +12,7 @@
     "express": "^4.18.2",
     "firebase": "^10.6.0",
     "fs.promises": "^0.1.2",
+    "keen-slider": "^6.8.6",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",

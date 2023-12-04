@@ -1,4 +1,5 @@
 .frame {
+
     background-color: transparent;
     display: flex;
     flex-direction: row;
@@ -91,7 +92,7 @@
     width: 171px;
   }
 .profile-pic {
-  box-shadow: 0 0 15px 1px #161616;
+  box-shadow: 0 0 15px 1px #1a1919b7;
   background-color: #161616;
     height: 134px;
     left: 33px;
