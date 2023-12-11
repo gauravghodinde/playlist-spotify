@@ -101,3 +101,37 @@ body {
   background-color: rgb(255, 255, 255);
   
 }
+.searchBox{
+  all:unset;
+  display: flex;
+  justify-content: left;
+  margin-left: 34px;
+  margin-top: 14px;
+  width: 280px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 33.5px;
+  background: #242424;
+  color: white;
+  text-align: start; 
+  padding-left: 54px;
+  font-size: 18px;
+}
+.searchBox:hover{
+  border: #f7f7f730  0.5px solid;
+}
+.searchBox:focus{
+  border: #f7f7f7  2px solid;
+
+}
+.searchIcon{
+  position: relative;
+  top: 28px;
+  left: 74px;
+  width: 24px;
+  height: 24px;
+
+}
+.searchBox-wrapper{
+  display: flex;
+}

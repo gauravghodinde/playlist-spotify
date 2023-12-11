@@ -4,7 +4,7 @@ import { useKeenSlider } from "keen-slider/react"
 import 'keen-slider/keen-slider.min.css'
 import axios from 'axios'
 import TrackObj from '../trackObj/TrackObj'
-const UserInfo = ({userName,imageProf,playlists,followers,following,token}) => {
+const UserInfo = ({userName,imageProf,playlists,followers,following,token,logout}) => {
     const [tracksData,setTracksData] = useState(null)
 
     const [tracks,updateTracts] = useState(null);
@@ -41,6 +41,10 @@ const UserInfo = ({userName,imageProf,playlists,followers,following,token}) => {
               // updateUserNameArr((prevArr) => [...prevArr, response.data]);
               setTracksData(response.data);
     
+            }).catch((error)=>{
+              console.log("this is error",error);
+              logout();
+              window.location.reload();
             });
         }
       };
