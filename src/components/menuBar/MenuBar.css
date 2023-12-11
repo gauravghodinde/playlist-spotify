@@ -1,0 +1,28 @@
+.bgOfMenuBar{
+    width: 88px;
+    margin-right: 12px;
+    margin-left: 12px;
+    border-radius: 11px;
+    background: rgba(18, 18, 18, 0.80);
+    padding-top: 26px;
+    padding-bottom: 26px;
+}
+.first {
+    height: 201px;
+}
+.second {
+    height: 200px;
+    margin-top: 10px;
+    
+}
+.home {
+  margin-bottom: 32px;
+}
+.search {
+    margin-bottom: 32px;
+    
+}
+.btnOfMenuBar{
+    cursor: pointer;
+
+}

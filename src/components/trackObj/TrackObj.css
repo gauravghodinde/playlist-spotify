@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto");
+.trackObj {
+  display: flex;
+  border-radius: 5px;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  margin: 5px;
+  padding-left: 16px;
+  font: "Roboto", sans-serif;
+  justify-content: space-between;
+  text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+.trackObj:hover{
+  background: #1A1A1A;
+
+}
+.firstGroup {
+  display: flex;
+}
+.secondGroup {
+  display: flex;
+}
+.imgTrack{
+    width: 48px;
+    height: 48px;   
+    flex-shrink: 0;
+    border-radius: 5px;
+    margin-left: 25px;
+}
+
+.trackNo {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.trackName {
+    color: #FFF;
+    
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+    letter-spacing: 0.2px;
+
+    padding-left: 16px;
+    padding-top: 2px;
+    width: 160px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+.artistName{
+    color: #ffffff87;
+    text-align: left;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.2px;
+
+    padding-left: 16px;
+    padding-top: 2px;
+    width: 160px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+.albumName {
+    color: #ffffff82;
+    /* font-family: Roboto; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.8px;
+    text-align: left;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    /* align-items: center; */
+    /* text-align: right; */
+}
+.albumName{
+  width: 160px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+.threeDots{
+  padding-right: 30px;
+  color: #FFF;
+/* font-family: Roboto; */
+font-size: 40px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: -0.8px;
+cursor: pointer;
+}
+.threeDots:hover{
+  transform: scale(1.05);
+  transition: all ease-out 15ms;
+}
+.threeDots:active{
+  transform: rotate(90deg) translate(13px,-15px);
+}

@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './userInfo.css'
 import { useKeenSlider } from "keen-slider/react"
 import 'keen-slider/keen-slider.min.css'
-const UserInfo = ({userName,imageProf,playlists,followers,following}) => {
-  
+import axios from 'axios'
+import TrackObj from '../trackObj/TrackObj'
+const UserInfo = ({userName,imageProf,playlists,followers,following,token}) => {
+    const [tracksData,setTracksData] = useState(null)
+
+    const [tracks,updateTracts] = useState(null);
     const [sliderRef] = useKeenSlider({
         loop: false,
         mode: "free",
@@ -13,10 +17,37 @@ const UserInfo = ({userName,imageProf,playlists,followers,following}) => {
           spacing: 20,
         },
       })
-  
+
+    useEffect(()=>{
+        if(tracks){
+            getTracksFromplaylists(tracks.href)
+        }
+    },[tracks])
+    const getTracksFromplaylists = async (url,e) => {
+        let token = window.localStorage.getItem("token");
+        console.log("token in Info", token);
+        if (token) {
+          e = !e ? (e = new Event("dummy")) : e;
+          e.preventDefault();
+          axios
+            .get(url, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              console.log("tracks " , response);
+              // updateUserNameArr([...userNameArr, response.data.display_name]);
+              // updateUserNameArr((prevArr) => [...prevArr, response.data]);
+              setTracksData(response.data);
+    
+            });
+        }
+      };
     return (
     <div className="bg">
         <div className="profile-section">
+            
             
             <img className='Profile-image' src={imageProf} alt="" />
             <div className="div-for-text">
@@ -41,7 +72,7 @@ const UserInfo = ({userName,imageProf,playlists,followers,following}) => {
             <div ref={sliderRef} className="playlist-Object">
             {playlists.items.map((playlist)=>{
                 return(
-                    <div className="bg-playlist keen-slider__slide">
+                    <div onClick={function (){tracks ? updateTracts(null) : updateTracts(playlist.tracks)}} className="bg-playlist keen-slider__slide">
                         <img className="img-playlists"
                              src={playlist.images[0].url} alt="" />
                         
@@ -51,9 +82,14 @@ const UserInfo = ({userName,imageProf,playlists,followers,following}) => {
                 )
             })}
             </div>
-            
+            {/* {tracks && <h1>{tracks.href} {tracks.total}</h1>} */}
+            {tracks && tracksData && tracksData.items.map((track,index)=>{
+              return <TrackObj trackNum={index+1}  trackName={track.track.name} img={track.track.album.images[0]? track.track.album.images[0].url : null} ablumName={track.track.album.name} artistName={track.track.artists[0].name} />
+            })}
             
         </div>
+
+
     </div>
   )
 }
