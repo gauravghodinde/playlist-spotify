@@ -1,8 +1,12 @@
 import "./MenuBar.css";
 import Home from "../../assests/MenuBarAssests/home.svg";
+import HomeFilled from "../../assests/MenuBarAssests/homeFilled.svg";
 import Search from "../../assests/MenuBarAssests/search.svg";
+import SearchFilled from "../../assests/MenuBarAssests/searchFilled.svg";
 import AddPlaylist from "../../assests/MenuBarAssests/addPlaylist.svg";
+import AddPlaylistFilled from "../../assests/MenuBarAssests/addPlaylistFilled.svg";
 import AboutMe from "../../assests/MenuBarAssests/aboutMe.svg";
+import AboutMeFilled from "../../assests/MenuBarAssests/aboutMeFilled.svg";
 import { useEffect, useState } from "react";
 
 const MenuBar = ({ updateMenuState }) => {
@@ -22,7 +26,7 @@ const MenuBar = ({ updateMenuState }) => {
         <div className="home">
           <img
             onClick={() => updateMenuStateChildVariable(0)}
-            src={Home}
+            src={menustateChildVariable==0? HomeFilled : Home}
             alt=""
             className="btnOfMenuBar"
           />
@@ -30,7 +34,8 @@ const MenuBar = ({ updateMenuState }) => {
         <div className="search">
           <img
             onClick={() => updateMenuStateChildVariable(1)}
-            src={Search}
+            src={menustateChildVariable==1? SearchFilled : Search}
+            
             alt=""
             className="btnOfMenuBar"
           />
@@ -38,7 +43,8 @@ const MenuBar = ({ updateMenuState }) => {
         <div className="addPlaylist">
           <img
             onClick={() => updateMenuStateChildVariable(2)}
-            src={AddPlaylist}
+            src={menustateChildVariable==2? AddPlaylistFilled : AddPlaylist}
+            
             alt=""
             className="btnOfMenuBar"
           />
@@ -48,7 +54,8 @@ const MenuBar = ({ updateMenuState }) => {
         <div className="aboutMe">
           <img
             onClick={() => updateMenuStateChildVariable(3)}
-            src={AboutMe}
+            src={menustateChildVariable==3? AboutMeFilled : AboutMe}
+           
             alt=""
             className="btnOfMenuBar"
           />
